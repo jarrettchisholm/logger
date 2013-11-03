@@ -28,7 +28,7 @@ using namespace logger::trivial;
 #else
 #define LOG_INFO(x) BOOST_LOG_SEV(cs_logger::Logger::getInstance()->getLogger(), info) << x
 #define LOG_DEBUG(x) BOOST_LOG_SEV(cs_logger::Logger::getInstance()->getLogger(), debug) << x
-#define LOG_WARN(x) BOOST_LOG_SEV(cs_logger::Logger::getInstance()->getLogger(), warn) << x
+#define LOG_WARN(x) BOOST_LOG_SEV(cs_logger::Logger::getInstance()->getLogger(), warning) << x
 #define LOG_ERROR(x) BOOST_LOG_SEV(cs_logger::Logger::getInstance()->getLogger(), error) << x
 #define LOG_FATAL(x) BOOST_LOG_SEV(cs_logger::Logger::getInstance()->getLogger(), fatal) << x
 #endif
