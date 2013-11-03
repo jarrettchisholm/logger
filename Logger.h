@@ -17,14 +17,14 @@
 #include <boost/log/sources/severity_logger.hpp>
 #include <boost/log/sources/record_ostream.hpp>
 
-namespace logging = boost::log;
+namespace logger = boost::log;
 namespace sinks = boost::log::sinks;
 namespace src = boost::log::sources;
 namespace expr = boost::log::expressions;
 namespace attrs = boost::log::attributes;
 namespace keywords = boost::log::keywords;
 
-using namespace logging::trivial;
+using namespace logger::trivial;
 
 #ifndef DEBUG
 #define LOG_INFO(x)
@@ -33,11 +33,36 @@ using namespace logging::trivial;
 #define LOG_ERROR(x)
 #define LOG_FATAL(x)
 #else
-#define LOG_INFO(x) cs_logger::Logger::getInstance()->logInfo( x );
-#define LOG_DEBUG(x) cs_logger::Logger::getInstance()->logDebug( x );
-#define LOG_WARN(x) cs_logger::Logger::getInstance()->logWarn( x );
-#define LOG_ERROR(x) cs_logger::Logger::getInstance()->logError( x );
-#define LOG_FATAL(x) cs_logger::Logger::getInstance()->logFatal( x );
+#define LOG_INFO(x)\
+{\
+	std::stringstream msg;\
+	msg << x;\
+	cs_logger::Logger::getInstance()->logInfo( msg.str() );\
+}
+#define LOG_DEBUG(x)\
+{\
+	std::stringstream msg;\
+	msg << x;\
+	cs_logger::Logger::getInstance()->logDebug( msg.str() );\
+}
+#define LOG_WARN(x)\
+{\
+	std::stringstream msg;\
+	msg << x;\
+	cs_logger::Logger::getInstance()->logWarn( msg.str() );\
+}
+#define LOG_ERROR(x)\
+{\
+	std::stringstream msg;\
+	msg << x;\
+	cs_logger::Logger::getInstance()->logError( msg.str() );\
+}
+#define LOG_FATAL(x)\
+{\
+	std::stringstream msg;\
+	msg << x;\
+	cs_logger::Logger::getInstance()->logFatal( msg.str() );\
+}
 #endif
 
 namespace cs_logger {
@@ -51,6 +76,12 @@ public:
 	void logWarn(std::string message);
 	void logError(std::string message);
 	void logFatal(std::string message);
+	
+	void logInfo(std::wstring message);
+	void logDebug(std::wstring message);
+	void logWarn(std::wstring message);
+	void logError(std::wstring message);
+	void logFatal(std::wstring message);
 	
 
 private:
@@ -67,3 +98,4 @@ private:
 };
 }
 #endif /* LOGGER_H_ */
+

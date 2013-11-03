@@ -7,7 +7,7 @@
 
 #include "Logger.h"
 
-namespace logging = boost::log;
+namespace logger = boost::log;
 namespace sinks = boost::log::sinks;
 namespace src = boost::log::sources;
 namespace expr = boost::log::expressions;
@@ -42,18 +42,18 @@ Logger* Logger::getInstance(std::string logFile)
 
 void Logger::initialize(std::string fileName)
 {	
-	logging::add_file_log( 
+	logger::add_file_log( 
 		fileName, 
 		keywords::auto_flush = true,
 		keywords::format = "[%TimeStamp%]: %Message%"
 	);
 
-    //logging::core::get()->set_filter
+    //logger::core::get()->set_filter
     //(
-	//	logging::trivial::severity >= logging::trivial::info
+	//	logger::trivial::severity >= logger::trivial::info
     //);
 	
-	logging::add_common_attributes();
+	logger::add_common_attributes();
 }
 
 void Logger::logInfo(std::string message)
@@ -81,4 +81,31 @@ void Logger::logFatal(std::string message)
 	BOOST_LOG_SEV(log_, fatal) << message;
 }
 
+// Wide String versions
+void Logger::logInfo(std::wstring message)
+{
+	BOOST_LOG_SEV(log_, info) << message;
 }
+
+void Logger::logDebug(std::wstring message)
+{
+	BOOST_LOG_SEV(log_, debug) << message;
+}
+
+void Logger::logWarn(std::wstring message)
+{
+	BOOST_LOG_SEV(log_, warning) << message;
+}
+
+void Logger::logError(std::wstring message)
+{
+	BOOST_LOG_SEV(log_, error) << message;
+}
+
+void Logger::logFatal(std::wstring message)
+{
+	BOOST_LOG_SEV(log_, fatal) << message;
+}
+
+}
+
