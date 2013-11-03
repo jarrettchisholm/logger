@@ -1,10 +1,3 @@
-/*
- * Logger.cpp
- *
- *  Created on: 2011-01-17
- *      Author: jarrett
- */
-
 #include "Logger.h"
 
 namespace logger = boost::log;
@@ -17,7 +10,7 @@ namespace keywords = boost::log::keywords;
 namespace cs_logger {
 
 	
-Logger::Logger(std::string fileName)
+Logger::Logger(const std::string& fileName)
 {
 	initialize(fileName);
 }
@@ -32,7 +25,7 @@ Logger::~Logger()
 }
 
 Logger* Logger::logger_ = nullptr;
-Logger* Logger::getInstance(std::string logFile)
+Logger* Logger::getInstance(const std::string& logFile)
 {
 	if ( Logger::logger_ == nullptr )
 		Logger::logger_ = new Logger(logFile);
@@ -40,12 +33,14 @@ Logger* Logger::getInstance(std::string logFile)
 	return Logger::logger_;
 }
 
-void Logger::initialize(std::string fileName)
+void Logger::initialize(const std::string& fileName)
 {	
+	boost::log::register_simple_formatter_factory< boost::log::trivial::severity_level, char >("Severity");
+	
 	logger::add_file_log( 
 		fileName, 
 		keywords::auto_flush = true,
-		keywords::format = "[%TimeStamp%]: %Message%"
+		keywords::format = "[%TimeStamp%] - %Severity%: %Message%"
 	);
 
     //logger::core::get()->set_filter
@@ -56,55 +51,60 @@ void Logger::initialize(std::string fileName)
 	logger::add_common_attributes();
 }
 
-void Logger::logInfo(std::string message)
+void Logger::logInfo(const std::string& message)
 {
 	BOOST_LOG_SEV(log_, info) << message;
 }
 
-void Logger::logDebug(std::string message)
+void Logger::logDebug(const std::string& message)
 {
 	BOOST_LOG_SEV(log_, debug) << message;
 }
 
-void Logger::logWarn(std::string message)
+void Logger::logWarn(const std::string& message)
 {
 	BOOST_LOG_SEV(log_, warning) << message;
 }
 
-void Logger::logError(std::string message)
+void Logger::logError(const std::string& message)
 {
 	BOOST_LOG_SEV(log_, error) << message;
 }
 
-void Logger::logFatal(std::string message)
+void Logger::logFatal(const std::string& message)
 {
 	BOOST_LOG_SEV(log_, fatal) << message;
 }
 
 // Wide String versions
-void Logger::logInfo(std::wstring message)
+void Logger::logInfo(const std::wstring& message)
 {
 	BOOST_LOG_SEV(log_, info) << message;
 }
 
-void Logger::logDebug(std::wstring message)
+void Logger::logDebug(const std::wstring& message)
 {
 	BOOST_LOG_SEV(log_, debug) << message;
 }
 
-void Logger::logWarn(std::wstring message)
+void Logger::logWarn(const std::wstring& message)
 {
 	BOOST_LOG_SEV(log_, warning) << message;
 }
 
-void Logger::logError(std::wstring message)
+void Logger::logError(const std::wstring& message)
 {
 	BOOST_LOG_SEV(log_, error) << message;
 }
 
-void Logger::logFatal(std::wstring message)
+void Logger::logFatal(const std::wstring& message)
 {
 	BOOST_LOG_SEV(log_, fatal) << message;
+}
+
+src::severity_logger< severity_level >& Logger::getLogger()
+{
+	return log_;
 }
 
 }
