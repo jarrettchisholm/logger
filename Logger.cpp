@@ -37,18 +37,18 @@ void Logger::initialize(const std::string& fileName)
 {	
 	boost::log::register_simple_formatter_factory< boost::log::trivial::severity_level, char >("Severity");
 	
-	logger::add_file_log( 
+	boost::log::add_file_log( 
 		fileName, 
 		keywords::auto_flush = true,
 		keywords::format = "[%TimeStamp%] - %Severity%: %Message%"
 	);
 
-    //logger::core::get()->set_filter
+    //boost::log::core::get()->set_filter
     //(
-	//	logger::trivial::severity >= logger::trivial::info
+	//	boost::log::trivial::severity >= boost::log::trivial::info
     //);
 	
-	logger::add_common_attributes();
+	boost::log::add_common_attributes();
 }
 
 void Logger::logInfo(const std::string& message)
