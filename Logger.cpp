@@ -10,7 +10,6 @@ namespace keywords = boost::log::keywords;
 namespace cs_logger
 {
 
-	
 Logger::Logger(const std::string& fileName)
 {
 	initialize(fileName);

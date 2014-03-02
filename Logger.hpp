@@ -39,8 +39,8 @@ namespace cs_logger
 class Logger
 {	
 public:
-	static Logger* getInstance(const std::string& logFile = "default.log");
-	
+	static Logger* getInstance(const std::string& logFile = std::string("default.log"));
+
 	void logInfo(const std::string& message);
 	void logDebug(const std::string& message);
 	void logWarn(const std::string& message);
