@@ -33,10 +33,11 @@ using namespace logger::trivial;
 #define LOG_FATAL(x) BOOST_LOG_SEV(cs_logger::Logger::getInstance()->getLogger(), fatal) << x
 #endif
 
-namespace cs_logger {
+namespace cs_logger
+{
 
-class Logger {
-	
+class Logger
+{	
 public:
 	static Logger* getInstance(const std::string& logFile = "default.log");
 	
@@ -66,9 +67,10 @@ private:
 
 	src::severity_logger< severity_level > log_;
 
-	static Logger* logger_; // singleton instance
+	// singleton instance
+	static Logger* logger_;
 };
 
 }
-#endif /* LOGGER_H_ */
 
+#endif /* LOGGER_H_ */

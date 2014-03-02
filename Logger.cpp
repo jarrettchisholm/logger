@@ -1,4 +1,4 @@
-#include "Logger.h"
+#include "Logger.hpp"
 
 namespace logger = boost::log;
 namespace sinks = boost::log::sinks;
@@ -7,7 +7,8 @@ namespace expr = boost::log::expressions;
 namespace attrs = boost::log::attributes;
 namespace keywords = boost::log::keywords;
 
-namespace cs_logger {
+namespace cs_logger
+{
 
 	
 Logger::Logger(const std::string& fileName)
