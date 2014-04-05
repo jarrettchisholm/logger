@@ -19,19 +19,18 @@ namespace keywords = boost::log::keywords;
 
 using namespace logger::trivial;
 
-#ifndef DEBUG
-#define LOG_INFO(x)
-#define LOG_DEBUG(x)
-#define LOG_WARN(x)
-#define LOG_ERROR(x)
-#define LOG_FATAL(x)
-#else
+#ifdef DEBUG
 #define LOG_INFO(x) BOOST_LOG_SEV(cs_logger::Logger::getInstance()->getLogger(), info) << x
 #define LOG_DEBUG(x) BOOST_LOG_SEV(cs_logger::Logger::getInstance()->getLogger(), debug) << x
 #define LOG_WARN(x) BOOST_LOG_SEV(cs_logger::Logger::getInstance()->getLogger(), warning) << x
+#else
+#define LOG_INFO(x)
+#define LOG_DEBUG(x)
+#define LOG_WARN(x)
+#endif
+
 #define LOG_ERROR(x) BOOST_LOG_SEV(cs_logger::Logger::getInstance()->getLogger(), error) << x
 #define LOG_FATAL(x) BOOST_LOG_SEV(cs_logger::Logger::getInstance()->getLogger(), fatal) << x
-#endif
 
 namespace cs_logger
 {
